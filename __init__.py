@@ -52,10 +52,7 @@ class MainWindowExtension(WindowExtension):
         if file:
             # TODO review
 
-            buffer = self.window.pageview.view.get_buffer()
             src_path = file.path
-            buffer.insert_link_at_cursor(src_path, src_path)
-            buffer.insert_at_cursor('\n')
 
             m = hashlib.md5()
             m.update(src_path)
@@ -76,5 +73,15 @@ class MainWindowExtension(WindowExtension):
 
             file = File(dest_path)
 
-            self.window.pageview.insert_image(file, type='image', interactive=False, force=True)
+            attrib = {
+                'href': src_path,
+
+                # TODO Relative path to image @see pageview.py L.6332
+                'src': dest_path
+            }
+
+            # Insert imge as link to local *.dia file
+            buffer = self.window.pageview.view.get_buffer()
+            buffer.insert_at_cursor('\n')
+            buffer.insert_image_at_cursor(file, **attrib)
             buffer.insert_at_cursor('\n')
