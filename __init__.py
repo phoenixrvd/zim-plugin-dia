@@ -62,14 +62,14 @@ class MainWindowExtension(WindowExtension):
             # Create dir if not exists
             dir.touch()
             dest_filenname = m.hexdigest()
-            dest_path = os.path.join(dir.path, dest_filenname + ".png")
+            dest_path = os.path.join(dir.path, dest_filenname + ".svg")
 
             # TODO get from config
             dot = Application( ('dia') )
 
             # dia -t png --nosplash -e foo.png Diagramm1.dia
             # TODO error handling and logging
-            dot.run( ('-t', 'png', '--nosplash',  '-e', dest_path, file.path ) )
+            dot.run( ('-t', 'svg', '--nosplash',  '-e', dest_path, file.path ) )
 
             file = File(dest_path)
 
